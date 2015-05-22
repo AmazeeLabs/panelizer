@@ -1551,6 +1551,12 @@ abstract class PanelizerEntityDefault implements PanelizerEntityInterface {
         $panelizer->revision_id = $revision_id;
       }
 
+      // If this is a default display, skip saving it.
+      $default_display = $this->get_default_display_default_name($bundle, $view_mode);
+      if (!empty($panelizer->name) && $panelizer->name == $default_display) {
+        continue;
+      }
+
       // On entity insert, we only write the display if it is not a default.
       // That probably means it came from an export or deploy or something
       // along those lines.
@@ -1636,6 +1642,12 @@ abstract class PanelizerEntityDefault implements PanelizerEntityInterface {
         // Ensure original values are maintained.
         $panelizer->entity_id = $entity_id;
         $panelizer->revision_id = $revision_id;
+      }
+
+      // If this is a default display, skip saving it.
+      $default_display = $this->get_default_display_default_name($bundle, $view_mode);
+      if (!empty($panelizer->name) && $panelizer->name == $default_display) {
+        continue;
       }
 
       // Determine whether an existing Panelizer record needs to be updated or
