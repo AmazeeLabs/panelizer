@@ -1583,7 +1583,7 @@ abstract class PanelizerEntityDefault implements PanelizerEntityInterface {
       $dids = db_query("SELECT did FROM {panelizer_entity} WHERE entity_type = '$this->entity_type' AND entity_id = :id AND view_mode = :view_mode", array(':id' => $entity_id, ':view_mode' => $view_mode))->fetchCol();
     }
 
-    foreach (array_unique($dids) as $did) {
+    foreach (array_unique(array_filter($dids)) as $did) {
       panels_delete_display($did);
     }
 
